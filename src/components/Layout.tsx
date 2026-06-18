@@ -1,15 +1,16 @@
-import { NavLink, Outlet } from 'react-router-dom'
-import { Dumbbell, History, Settings, Play, LayoutTemplate, BarChart3, Trophy } from 'lucide-react'
+import { NavLink, Outlet } from 'react-router-dom';
+import { House, Dumbbell, History, Settings, Play, LayoutTemplate, BarChart3, Trophy } from 'lucide-react';
 
 const links = [
-  { to: '/', label: 'Ejercicios', icon: Dumbbell },
+  { to: '/', label: 'Inicio', icon: House },
+  { to: '/exercises', label: 'Ejercicios', icon: Dumbbell },
   { to: '/templates', label: 'Plantillas', icon: LayoutTemplate },
   { to: '/workout', label: 'Entreno', icon: Play },
   { to: '/stats', label: 'Estadísticas', icon: BarChart3 },
   { to: '/achievements', label: 'Logros', icon: Trophy },
   { to: '/history', label: 'Historial', icon: History },
   { to: '/settings', label: 'Ajustes', icon: Settings },
-]
+];
 
 export function Layout() {
   return (
@@ -33,5 +34,5 @@ export function Layout() {
         </div>
       </nav>
     </div>
-  )
+  );
 }

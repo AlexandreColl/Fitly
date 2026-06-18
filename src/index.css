@@ -9,15 +9,22 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
 }
 
-.light body {
-  @apply bg-white text-slate-800;
-}
-
-.light .bg-slate-950 { @apply bg-white; }
-.light .bg-slate-900 { @apply bg-slate-50; }
-.light .bg-slate-800 { @apply bg-slate-100; }
-.light .border-slate-800 { @apply border-slate-200; }
-.light .border-slate-700 { @apply border-slate-300; }
-.light .text-white { @apply text-slate-900; }
-.light .text-slate-400 { @apply text-slate-500; }
-.light .text-slate-500 { @apply text-slate-400; }
+/* Light theme overrides */
+.light body { background: #fff; color: #1e293b; }
+.light .bg-slate-950 { background: #fff; }
+.light .bg-slate-900 { background: #f8fafc; }
+.light .bg-slate-800 { background: #f1f5f9; }
+.light .bg-slate-700 { background: #e2e8f0; }
+.light .border-slate-800 { border-color: #e2e8f0; }
+.light .border-slate-700 { border-color: #cbd5e1; }
+.light .text-white { color: #0f172a; }
+.light .text-slate-400 { color: #64748b; }
+.light .text-slate-500 { color: #94a3b8; }
+.light .text-emerald-300 { color: #059669; }
+.light .text-emerald-400 { color: #10b981; }
+.light .bg-emerald-900\/40 { background: rgba(16, 185, 129, 0.15); }
+.light .bg-emerald-900\/30 { background: rgba(16, 185, 129, 0.1); }
+.light .border-emerald-700 { border-color: #34d399; }
+.light .border-emerald-700\/50 { border-color: rgba(52, 211, 153, 0.3); }
+.light .bg-red-900\/30 { background: rgba(239, 68, 68, 0.1); }
+.light .border-red-700 { border-color: #fca5a5; }

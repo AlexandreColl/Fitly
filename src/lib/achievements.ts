@@ -1,4 +1,4 @@
-import type { AchievementDef } from '../types'
+import type { AchievementDef } from '../types';
 
 export const ACHIEVEMENTS: AchievementDef[] = [
   { id: 'first_workout', title: 'Primer paso', description: 'Completá tu primer entreno', icon: '🎉' },
@@ -20,4 +20,8 @@ export const ACHIEVEMENTS: AchievementDef[] = [
   { id: 'early_bird', title: 'Madrugador', description: 'Entrená antes de las 7 AM', icon: '🌅' },
   { id: 'night_owl', title: 'Búho nocturno', description: 'Entrená después de las 10 PM', icon: '🦉' },
   { id: 'variety', title: 'Variedad', description: 'Usá 12 ejercicios distintos', icon: '🎯' },
-]
+];
+
+export function getAchievement(id: string) {
+  return ACHIEVEMENTS.find(a => a.id === id);
+}

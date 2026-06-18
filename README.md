@@ -130,9 +130,13 @@ Para obtener una copia local y ejecutarla, seguí estos pasos.
 <!-- USAGE -->
 ## 🎮 Uso
 
+### Inicio
+
+La pantalla principal muestra un **resumen semanal**: racha actual de días consecutivos, entrenos esta semana, volumen total y minutos. Incluye un botón grande para empezar un entreno rápido y una lista de los últimos 3 entrenos.
+
 ### Ejercicios
 
-Navegá a la sección **Ejercicios** para explorar la biblioteca. Usá el buscador o los filtros por grupo muscular y tags. Hacé clic en un ejercicio para ver sus instrucciones y video. Usá el botón **Sugerir** para obtener ejercicios aleatorios o **Nuevo** para agregar tus propios ejercicios.
+Navegá a la sección **Ejercicios** para explorar la biblioteca en formato grilla. Usá el buscador o los filtros por grupo muscular y tags. Hacé clic en una tarjeta para abrir el modal con instrucciones y video. Usá el botón **Sugerir** para obtener ejercicios aleatorios o **Nuevo** para agregar tus propios ejercicios.
 
 ### Entreno
 
@@ -140,7 +144,7 @@ Andá a la sección **Entreno**, seleccioná un ejercicio, ingresá peso, repeti
 
 ### Plantillas
 
-En **Plantillas** podés crear rutinas personalizadas seleccionando ejercicios con checkboxes. Una vez creada, la plantilla se puede iniciar directamente y los ejercicios se encolan automáticamente.
+En **Plantillas** podés crear rutinas personalizadas seleccionando ejercicios con checkboxes. Cada plantilla permite **editar el nombre**, **reordenar los ejercicios** con flechas arriba/abajo, y **agregar o quitar** ejercicios. Una vez creada, se puede iniciar directamente y los ejercicios se encolan automáticamente.
 
 ### Estadísticas
 
@@ -171,6 +175,11 @@ Completá entrenos para desbloquear logros. Hay 19 distribuidos en categorías: 
 | `pnpm dev` | Inicia servidor de desarrollo con HMR |
 | `pnpm build` | Compila TypeScript + Vite para producción |
 | `pnpm preview` | Previsualiza el build de producción |
+| `pnpm build:mobile` | Build + Capacitor sync (Android/iOS) |
+| `pnpm cap:android` | Abre Android Studio |
+| `pnpm cap:ios` | Abre Xcode |
+| `dev.bat` | (Windows) Inicia servidor de desarrollo con un clic |
+| `build.bat` | (Windows) Compila producción con un clic |
 
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
@@ -192,6 +201,11 @@ El resultado se genera en la carpeta `dist/` con el service worker y el manifest
 | `pnpm dev` | Servidor de desarrollo con recarga en caliente |
 | `pnpm build` | Compila TypeScript + Vite para producción |
 | `pnpm preview` | Sirve el build de producción localmente |
+| `pnpm build:mobile` | Build web + `cap sync` |
+| `pnpm cap:android` | Abre Android Studio para compilar APK/AAB |
+| `pnpm cap:ios` | Abre Xcode para compilar IPA |
+| `dev.bat` | Doble clic → `pnpm dev` (Windows) |
+| `build.bat` | Doble clic → `pnpm build` (Windows) |
 
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>
 
@@ -202,39 +216,45 @@ El resultado se genera en la carpeta `dist/` con el service worker y el manifest
 fitly/
 ├── src/
 │   ├── components/
-│   │   ├── Layout.tsx          # Navegación inferior con 6 secciones
+│   │   ├── Layout.tsx          # Navegación inferior con 8 secciones
 │   │   ├── ExerciseForm.tsx    # Modal para crear/editar ejercicios
 │   │   ├── VideoEmbed.tsx      # Reproductor de YouTube embebido
 │   │   └── Toast.tsx           # Notificación de logro desbloqueado
 │   ├── pages/
-│   │   ├── Exercises.tsx       # Biblioteca con filtros y búsqueda
-│   │   ├── Templates.tsx       # Gestión de plantillas
-│   │   ├── Workout.tsx         # Entreno en vivo con temporizador
-│   │   ├── History.tsx         # Historial de sesiones
+│   │   ├── Home.tsx            # Dashboard semanal: racha, volumen, últimos entrenos
+│   │   ├── Exercises.tsx       # Biblioteca en grilla con modal detalle
+│   │   ├── Templates.tsx       # Plantillas con nombre editable y reorden
+│   │   ├── Workout.tsx         # Entreno en vivo con temporizador + confirmación
+│   │   ├── History.tsx         # Historial con detalle expandible de series
 │   │   ├── Stats.tsx           # Estadísticas y marcas personales
-│   │   ├── Achievements.tsx    # Grid de logros
-│   │   └── Settings.tsx        # Configuración y backup
+│   │   ├── Achievements.tsx    # Grid de 19 logros
+│   │   └── Settings.tsx        # Configuración + export/import backup
 │   ├── hooks/
 │   │   ├── useExercises.ts     # CRUD de ejercicios
-│   │   ├── useWorkout.ts       # Sesión activa e historial
+│   │   ├── useWorkout.ts       # Sesión activa con ids únicos por serie
 │   │   ├── useSettings.ts      # Configuración persistente
 │   │   ├── useTheme.ts         # Tema oscuro/claro/sistema
-│   │   └── useAchievements.ts  # Detección y desbloqueo de logros
+│   │   └── useAchievements.ts  # Detección y desbloqueo de 19 logros
 │   ├── db/
-│   │   └── index.ts            # Dexie schema, tablas y seed de datos
+│   │   └── index.ts            # Dexie schema (v2), tablas y seed 24 ejercicios
 │   ├── lib/
 │   │   ├── sound.ts            # Web Audio API para beep
-│   │   └── achievements.ts     # Definición de los 19 logros
+│   │   └── achievements.ts     # Definición de los 19 logros + getAchievement()
 │   ├── types/
-│   │   └── index.ts            # Tipos compartidos
-│   ├── App.tsx                 # Router y layout principal
-│   ├── main.tsx                # Entry point
-│   └── index.css               # Estilos globales y tema
-├── dist/                       # Build de producción (generado)
+│   │   └── index.ts            # Tipos: Exercise, WorkoutSession, SetEntry, AchievementDef...
+│   ├── App.tsx                 # Router con 8 rutas + Toast de logros
+│   ├── main.tsx                # Entry point React 19
+│   └── index.css               # Tailwind v4 + tema claro/oscuro con overrides CSS
+├── android/                    # Proyecto Android nativo (Capacitor)
+├── ios/                        # Proyecto iOS nativo (Capacitor)
+├── dist/                       # Build PWA (generado, no trackear)
 ├── public/
 │   └── favicon.svg             # Icono de la app
-├── index.html
-├── vite.config.ts              # Vite + React + Tailwind + PWA
+├── capacitor.config.ts         # Configuración Capacitor
+├── dev.bat                     # (Windows) pnpm dev con un clic
+├── build.bat                   # (Windows) pnpm build con un clic
+├── index.html                  # Meta tags PWA + viewport-fit
+├── vite.config.ts              # React + Tailwind + PWA (Workbox)
 ├── tsconfig.json
 └── package.json
 ```
@@ -255,10 +275,13 @@ fitly/
 - [x] Exportación e importación de datos (backup JSON)
 - [x] Temas oscuro, claro y seguimiento del sistema
 - [x] PWA con service worker y offline completo
-- [ ] Videos embebidos con reproducción automática
-- [ ] Temporizador configurable por ejercicio en la plantilla
-- [ ] Widget de resumen semanal en la pantalla de inicio
-- [ ] Fase 2: Empaquetado con Capacitor para Android e iOS
+- [x] Videos de YouTube embebidos inline + detección automática
+- [x] Confirmación al finalizar entreno
+- [x] Dashboard de inicio con resumen semanal
+- [x] Editar nombre de plantillas
+- [x] Reordenar ejercicios en plantillas
+- [x] Detalle de sesión en historial (series individuales)
+- [x] Fase 2: Empaquetado con Capacitor para Android e iOS
 - [ ] Fase 3: Integración con Health Connect, Apple Health, Garmin, Fitbit, Polar
 
 <p align="right">(<a href="#readme-top">volver arriba</a>)</p>

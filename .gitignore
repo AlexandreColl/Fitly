@@ -31,6 +31,9 @@ lerna-debug.log*
 Thumbs.db
 desktop.ini
 
+# Temp scaffold residue
+CUsersALEXAN~1AppDataLocalTemp*
+
 # Capacitor (Fase 2)
 android/
 ios/
